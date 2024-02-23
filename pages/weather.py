@@ -105,10 +105,13 @@ if st.button("Download Image"):
 st.header("Upload Image File")
 
 # File uploader widget to upload an image
-image = st.file_uploader(label="Upload image", type=image_extensions)
+images = st.file_uploader(
+    label="Upload image", type=image_extensions, accept_multiple_files=True
+)
 
-if image:
-    image = Image.open(image)
-    prediction = predict(image)
-    st.write("Prediction:", prediction)
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+if images:
+    for image in images:
+        image = Image.open(image)
+        prediction = predict(image)
+        st.write("Prediction:", prediction)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
